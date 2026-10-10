@@ -13,7 +13,7 @@ class Ship:
         self.rect = self.image.get_rect()
 
         #每艘新飞船都放在屏幕底部中央
-        self.rect.mid_bottom=self.screen_rect.midbottom
+        self.rect.midbottom=self.screen_rect.midbottom
 
     def blit_me(self):
         #在指定位置绘制飞船

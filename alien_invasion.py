@@ -4,6 +4,7 @@ import sys #退出游戏
 import pygame
 
 from settings import Settings
+from ship import Ship
 
 class AlienInvasion():
     '''管理游戏资源和行为的类'''
@@ -17,6 +18,7 @@ class AlienInvasion():
         #创建显示整个游戏的窗口surface 激活后每次循环自动重绘  尺寸元组
         # 赋给属性screen的对象是一个surface surface理解为是画布或贴纸
         pygame.display.set_caption('Alien Invasion')
+        self.ship=Ship(self)
 
     def run_game(self):
         '''开始游戏的主循环'''
@@ -26,8 +28,9 @@ class AlienInvasion():
                 # 事件是用户玩游戏的操作 如按键 移动鼠标
                 if event.type == pygame.QUIT:
                     sys.exit()
-            self.screan.fill(self.settings.bg_color)
+            self.screen.fill(self.settings.bg_color)
              #fill方法处理surface 直接收颜色实参 每次循环都重绘屏幕
+            self.ship.blit_me()
             pygame.display.flip() #更新屏幕
 if __name__ == '__main__':
     ai_game = AlienInvasion()
