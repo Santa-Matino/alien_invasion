@@ -22,10 +22,14 @@ class Ship:
 
     def update_position(self):
         #更新虚拟移动距离 不是实际rect.x
-        if self.moving_right:
+        #限制飞船右移的最大距离为屏幕右边框
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
-        elif self.moving_left:
+
+        #限制飞船右移的最大距离为屏幕左边框 因为默认坐标左上角为0所以大于0就不算出界
+        elif self.moving_left and self.rect.left > 0:
             self.x -= self.settings.ship_speed
+
         #根据虚拟距离测算更新真实的rect.x
         self.rect.x=self.x
 

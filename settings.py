@@ -8,4 +8,4 @@ class Settings:
      self.screen_height = 800
      self.bg_color = (230, 230, 230)
      self.ship_speed = 1.5 #只要比1大就行
-     #rect只能存储整数值 设置一个双轨路行
+     #rect只能存储整数值 设置一个双轨路行 这个速度设置为距离平均速度 认识到这一点很重要
