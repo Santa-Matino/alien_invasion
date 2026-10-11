@@ -14,7 +14,9 @@ class AlienInvasion():
         self.settings = Settings()
         #创建setting实例
         self.bg_color=(230,230,230)  #设置背景颜色为浅灰色 RGB 红绿蓝（0，255）
-        self.screen=pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
+        self.screen=pygame.display.set_mode((0,0),pygame.FULLSCREEN) #全屏设置
+        self.settings.screen_width = self.screen.get_width()
+        self.settings.screen_height = self.screen.get_height()
         #创建显示整个游戏的窗口surface 激活后每次循环自动重绘  尺寸元组
         # 赋给属性screen的对象是一个surface surface理解为是画布或贴纸
         pygame.display.set_caption('Alien Invasion')
