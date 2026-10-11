@@ -35,14 +35,18 @@ class AlienInvasion():
             # 事件是用户玩游戏的操作 如按键 移动鼠标
             if event.type == pygame.QUIT:
                 sys.exit()
+
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    #按右键为真移动
                     self.ship.moving_right = True
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = True
+
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT:
-                    #松右键为假停止
                     self.ship.moving_right = False
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = False
 
     def _update_screen(self):
         '''更新屏幕图像并切换新屏幕'''
