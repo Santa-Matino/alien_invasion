@@ -28,12 +28,7 @@ class AlienInvasion():
         while True:
             self._check_events()
             self.ship.update_position() #移动飞船
-
-            self.bullets.update() #更新子弹位置 跟踪整个编组内的子弹
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom < 0:
-                    self.bullets.remove(bullet)
-
+            self._update_bullets() #管理子弹
             self._update_screen()
 
 
@@ -75,6 +70,12 @@ class AlienInvasion():
         if len(self.bullets) < self.settings.bullets_allowed:
          new_bullet = Bullet(self)
          self.bullets.add(new_bullet)
+
+    def _update_bullets(self):  #编写并管理子弹
+        self.bullets.update()  # 更新子弹位置 跟踪整个编组内的子弹
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom < 0:
+                self.bullets.remove(bullet)
 
     def _update_screen(self):
         '''更新屏幕图像并切换新屏幕'''
