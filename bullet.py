@@ -8,9 +8,10 @@ class Bullet(Sprite):
         self.screen = ai_game.screen
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
+        self.color = ai_game.settings.bullet_color
 
         #在0，0处创建一个子弹矩形，再设置正确位置
-        self.rect = pygame.Rect(0, 0, self.settings.screen_width, self.settings.screen_height)
+        self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
         self.rect.midtop=ai_game.ship.rect.midtop
 
         #存储子弹的小数位置
