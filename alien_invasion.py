@@ -1,5 +1,7 @@
 #创建pygame窗口
 import sys #退出游戏
+from zoneinfo import available_timezones
+
 import pygame
 
 from bullet import Bullet
@@ -82,9 +84,20 @@ class AlienInvasion():
 
     def _create_fleet(self):
         '''创建外星人群'''
-        #创建一个外星人
+        #创建一个外星人并计算一行可容纳多少个外星人
+        #外星人间距为外星人宽度
         alien=Alien(self)
-        self.aliens.add(alien)
+        alien_width=alien.rect.width
+        available_space_x=self.settings.screen_width-(2*alien_width)
+        number_aliens_x=available_space_x // (2*alien_width)
+
+        #创建第一行外星人
+        for alien_number in range(number_aliens_x):
+             alien=Alien(self)
+             alien.x=alien_width+2*alien_width*alien_number
+             alien.rect.x=alien.x
+             self.aliens.add(alien)
+
 
     def _update_screen(self):
         '''更新屏幕图像并切换新屏幕'''
