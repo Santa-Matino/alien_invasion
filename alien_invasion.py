@@ -28,7 +28,12 @@ class AlienInvasion():
         while True:
             self._check_events()
             self.ship.update_position() #移动飞船
+
             self.bullets.update() #更新子弹位置 跟踪整个编组内的子弹
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom < 0:
+                    self.bullets.remove(bullet)
+
             self._update_screen()
 
 
