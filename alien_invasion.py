@@ -1,8 +1,8 @@
 #创建pygame窗口
 import sys #退出游戏
-
 import pygame
 
+from bullet import Bullet
 from settings import Settings
 from ship import Ship
 
@@ -21,12 +21,14 @@ class AlienInvasion():
         # 赋给属性screen的对象是一个surface surface理解为是画布或贴纸
         pygame.display.set_caption('Alien Invasion')
         self.ship=Ship(self)
+        self.bullet=pygame.sprite.Group() #存储子弹的编组 管理子弹 自动化的列表
 
     def run_game(self):
         '''开始游戏的主循环'''
         while True:
             self._check_events()
             self.ship.update_position() #移动飞船
+            self.bullet.update() #更新子弹位置 跟踪整个编组内的子弹
             self._update_screen()
 
 
@@ -60,9 +62,6 @@ class AlienInvasion():
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
-
-
-
 
     def _update_screen(self):
         '''更新屏幕图像并切换新屏幕'''
