@@ -86,6 +86,13 @@ class AlienInvasion():
         #如果是就删除相应的子弹和外星人
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True,True)
 
+        if not self.aliens: #检查外星人编组是否为空 空为false
+            #删除现有的子弹并创建一群外星人
+           self.bullets.empty()
+           self._create_fleet()
+
+
+
     def _update_aliens(self):
         '''检查是否有外星人位于屏幕边缘，并更新外星人位置'''
         self._check_fleet_edges()
@@ -103,8 +110,10 @@ class AlienInvasion():
         number_aliens_x=available_space_x // (2*alien_width)
         #计算容纳多少行外星人
         ship_height=self.ship.rect.height
+
         available_space_y=(self.settings.screen_height-(3*alien_height)-ship_height)
         number_rows=available_space_y//(2*alien_height)
+
         #创建外星人群
         for row_number in range(number_rows):
            for alien_number in range(number_aliens_x):
