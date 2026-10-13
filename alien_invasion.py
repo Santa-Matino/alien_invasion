@@ -82,7 +82,10 @@ class AlienInvasion():
                 self.bullets.remove(bullet)
 
     def _update_aliens(self):
-       self.aliens.update()
+        '''检查是否有外星人位于屏幕边缘，并更新外星人位置'''
+        self._check_fleet_edges()
+        self.aliens.update()
+
 
     def _create_fleet(self):
         '''创建外星人群'''
@@ -112,6 +115,19 @@ class AlienInvasion():
 
         alien.rect.y=alien.rect.height + 2 * alien_height * row_number
         self.aliens.add(alien)
+
+    def _check_fleet_edges(self):
+        '''有外星人到达边缘时采取相应措施'''
+        for alien in self.aliens.sprites():
+            if alien.check_edges(): #如果返回真改变方向
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        '''整群外星人下移并改变方向'''
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1 #1*-1=-1
 
 
     def _update_screen(self):
