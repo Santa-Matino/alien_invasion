@@ -6,6 +6,7 @@ class Alien(Sprite):
         '''初始化外星人并设置其位置'''
         super().__init__()
         self.screen = ai_game.screen
+        self.settings = ai_game.settings
 
         #加载外星人图像并设置rect属性
         self.image = pygame.image.load('images/alien.bmp')
@@ -17,3 +18,8 @@ class Alien(Sprite):
 
         #存储外星人精准水平位置
         self.x=float(self.rect.x)
+
+    def update(self):
+        '''向右移动外星人'''
+        self.x +=self.settings.alien_speed
+        self.rect.x=self.x
