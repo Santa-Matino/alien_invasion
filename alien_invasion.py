@@ -37,10 +37,11 @@ class AlienInvasion():
         '''开始游戏的主循环'''
         while True:
             self._check_events()
-            self.ship.update_position() #移动飞船
-            self._update_bullets() #管理子弹
-            self._update_aliens()
-            self._update_screen()
+            if self.stats.game_active:
+             self.ship.update_position() #移动飞船
+             self._update_bullets() #管理子弹
+             self._update_aliens()
+             self._update_screen()
 
 
     def _check_events(self):
@@ -103,13 +104,13 @@ class AlienInvasion():
             self.bullets.empty()
             self._create_fleet()
 
-        def _check_aliens_bottom():
-            '''检查是否有外星人到达底端'''
-            screen_rect = self.screen.get_rect()
-            for alien in self.aliens.sprites():
-                if alien.rect.bottom >= screen_rect.bottom:
-                    self._ship_hit()
-                    break
+    def _check_aliens_bottom(self):
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+                self._ship_hit
+                break
+
 
 
     def _update_aliens(self):
@@ -125,19 +126,22 @@ class AlienInvasion():
 
     def _ship_hit(self):
         '''响应飞船被外星人撞到'''
-        #将shipleft-1
-        self.stats.ship_left -= 1
+        if self.stats.ship_left > 0:
+            #将shipleft-1
+           self.stats.ship_left -= 1
 
-        #清空余下的外星人和子弹
-        self.aliens.empty()
-        self.bullets.empty()
+           #清空余下的外星人和子弹
+           self.aliens.empty()
+           self.bullets.empty()
 
-        #创建一群新的外星人 并把飞船放到底部中央
-        self._create_fleet()
-        self.ship.center_ship()
+           #创建一群新的外星人 并把飞船放到底部中央
+           self._create_fleet()
+           self.ship.center_ship()
 
-        #暂停
-        sleep(1.0)
+           #暂停
+           sleep(1.0)
+        else:
+            self.stats.game_active = False
 
 
     def _create_fleet(self):
