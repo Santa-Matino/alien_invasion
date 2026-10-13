@@ -7,8 +7,10 @@ class Settings:
      self.screen_width = 1200
      self.screen_height = 800
      self.bg_color = (230, 230, 230)
+
      self.ship_speed = 1.5 #只要比1大就行
      #rect只能存储整数值 设置一个双轨路行 这个速度设置为距离平均速度 认识到这一点很重要
+     self.ship_limit = 3
 
      #设置子弹的参数
      self.bullet_speed = 1.0
@@ -16,9 +18,11 @@ class Settings:
      self.bullet_height = 15
      self.bullet_color = 60, 60, 60
      self.bullets_allowed = 5
+
      #外星人移动速度
      self.alien_speed = 2.0
      self.fleet_drop_speed = 10
      #fleet_direction 为1表示向右移动，-1表示向左移动
      self.fleet_direction = 1
+
 

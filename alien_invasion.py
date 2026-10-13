@@ -1,9 +1,10 @@
 #创建pygame窗口
 import sys #退出游戏
 import pygame
-
+from time import sleep
 from bullet import Bullet
 from settings import Settings
+from game_stats import GameStats
 from ship import Ship
 from alien import Alien
 
@@ -21,8 +22,14 @@ class AlienInvasion():
         #创建显示整个游戏的窗口surface 激活后每次循环自动重绘  尺寸元组
         # 赋给属性screen的对象是一个surface surface理解为是画布或贴纸
         pygame.display.set_caption('Alien Invasion')
+
+        #创建一个存储游戏统计信息的实例
+        self.stats = GameStats()
+
         self.ship=Ship(self)
+
         self.bullets=pygame.sprite.Group() #存储子弹的编组 管理子弹 自动化的列表
+
         self.aliens=pygame.sprite.Group()
         self._create_fleet()
 
@@ -104,7 +111,23 @@ class AlienInvasion():
 
         #检测外星人和飞船的碰撞
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            print('Ship hit !')
+            self._ship_hit()
+
+    def _ship_hit(self):
+        '''响应飞船被外星人撞到'''
+        #将shipleft-1
+        self.stats.ship_left -= 1
+
+        #清空余下的外星人和子弹
+        self.aliens.empty()
+        self.bullets.empty()
+
+        #创建一群新的外星人 并把飞船放到底部中央
+        self._create_fleet()
+        self.ship.center_ship()
+
+        #暂停
+        sleep(1.0)
 
 
     def _create_fleet(self):
