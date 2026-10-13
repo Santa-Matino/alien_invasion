@@ -40,4 +40,4 @@ class Ship:
     def center_ship(self):
         '''让飞船在底部中央'''
         self.rect.midbottom=self.screen_rect.midbottom
-        self.x = float(self.rect.x) 
+        self.x = float(self.rect.x)

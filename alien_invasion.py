@@ -24,7 +24,7 @@ class AlienInvasion():
         pygame.display.set_caption('Alien Invasion')
 
         #创建一个存储游戏统计信息的实例
-        self.stats = GameStats()
+        self.stats = GameStats(self)
 
         self.ship=Ship(self)
 
@@ -103,6 +103,14 @@ class AlienInvasion():
             self.bullets.empty()
             self._create_fleet()
 
+        def _check_aliens_bottom():
+            '''检查是否有外星人到达底端'''
+            screen_rect = self.screen.get_rect()
+            for alien in self.aliens.sprites():
+                if alien.rect.bottom >= screen_rect.bottom:
+                    self._ship_hit()
+                    break
+
 
     def _update_aliens(self):
         '''检查是否有外星人位于屏幕边缘，并更新外星人位置'''
@@ -112,6 +120,8 @@ class AlienInvasion():
         #检测外星人和飞船的碰撞
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()
+        #检查是否有外星人到达底端
+        self._check_aliens_bottom()
 
     def _ship_hit(self):
         '''响应飞船被外星人撞到'''
